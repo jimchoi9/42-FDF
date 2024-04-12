@@ -6,7 +6,7 @@
 /*   By: jimchoi <jimchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:18:23 by jimchoi           #+#    #+#             */
-/*   Updated: 2024/04/09 20:49:13 by jimchoi          ###   ########.fr       */
+/*   Updated: 2024/04/12 18:49:16 by jimchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ void	draw_image(t_data *image);
 int		abs(int num);
 void	bhm_drow_w(t_xy xy, t_linedata line, t_data image);
 void	bhm_drow_h(t_xy xy, t_linedata line, t_data image);
-void	bhm(t_xy xy, int x2, int y2, t_data *image);
 void	bresenham(t_xy xy, int x2, int y2, t_data *image);
 int		str_check(t_data *image, char **str);
 int		is_valid_map(char *argv[], t_data *image);
 void	init_struct(t_data *image);
 void	parsing(char *argv[], t_data *image, int i, int j);
+int		handle_exit(int num);
+int		handle_key_hook(int keycode, t_data *image);
 
 #endif

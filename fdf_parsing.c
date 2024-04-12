@@ -6,7 +6,7 @@
 /*   By: jimchoi <jimchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:21:49 by jimchoi           #+#    #+#             */
-/*   Updated: 2024/04/09 20:46:26 by jimchoi          ###   ########.fr       */
+/*   Updated: 2024/04/12 19:01:18 by jimchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	str_check(t_data *image, char **str)
 	int	i;
 
 	i = 0;
+	if (str == NULL)
+		handle_exit(2);
 	image->width = 0;
 	while (str[i] != NULL)
 	{
@@ -37,16 +39,17 @@ int	is_valid_map(char *argv[], t_data *image)
 
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-		exit (1);
+		handle_exit(1);
 	image->height = 0;
 	line = get_next_line(fd);
 	str = ft_split(line, ' ');
 	check = str_check(image, str);
+	free(str);
 	while (line != NULL)
 	{
 		str = ft_split(line, ' ');
 		if (str_check(image, str) != check)
-			exit (1);
+			handle_exit(2);
 		image->height++;
 		free(line);
 		free(str);
@@ -62,7 +65,7 @@ void	init_struct(t_data *image)
 
 	i = 0;
 	if (image->width * image->height <= 1)
-		exit(1);
+		handle_exit(2);
 	image->points = (t_point **)malloc(sizeof(t_point *) * image->height);
 	image->map = (t_point **)malloc(sizeof(t_point *) * image->height);
 	while (i < image->height)

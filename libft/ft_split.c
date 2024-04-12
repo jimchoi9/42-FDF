@@ -6,7 +6,7 @@
 /*   By: jimchoi <jimchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/16 16:53:06 by jimchoi           #+#    #+#             */
-/*   Updated: 2023/10/23 16:38:34 by jimchoi          ###   ########.fr       */
+/*   Updated: 2024/04/12 18:26:44 by jimchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ char	**ft_split(char const *s, char c)
 	char	**result;
 	int		size;
 
+	if (s == NULL)
+		return (0);
 	size = count(s, c);
 	if (s[0] == 0)
 		size = 0;

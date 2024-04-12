@@ -6,7 +6,7 @@
 /*   By: jimchoi <jimchoi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 17:37:22 by jimchoi           #+#    #+#             */
-/*   Updated: 2024/04/09 20:52:29 by jimchoi          ###   ########.fr       */
+/*   Updated: 2024/04/12 18:57:02 by jimchoi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	remove_window(t_data *image)
 int	handle_key_hook(int keycode, t_data *image)
 {
 	remove_window(image);
+	if (keycode == 53)
+		handle_exit(0);
 	if (keycode == 126)
 		image->z_level += 1;
 	if (keycode == 125)
@@ -45,16 +47,21 @@ int	handle_key_hook(int keycode, t_data *image)
 	return (0);
 }
 
-int	key_press_esc(int keycode)
+int	handle_exit(int num)
 {
-	if (keycode == 53)
+	if (num == 1)
+	{
+		ft_putendl_fd("Invalid file", 2);
+		exit(1);
+	}
+	else if (num == 2)
+	{
+		ft_putendl_fd("Invalid map", 2);
+		exit(1);
+	}
+	else
 		exit(0);
 	return (0);
-}
-
-int	exit_key(void)
-{
-	exit(0);
 }
 
 int	main(int argc, char *argv[])
@@ -63,12 +70,10 @@ int	main(int argc, char *argv[])
 	t_data	image;
 
 	if (argc != 2)
-		exit(1);
+		handle_exit(1);
 	str = ft_strrchr(argv[1], '.');
-	if(str == NULL)
-		exit(1);
-	if (ft_strncmp(str, ".fdf", 3) != 0)
-		exit(1);
+	if (ft_strncmp(str, ".fdf", 5) != 0)
+		handle_exit(1);
 	parsing(argv, &image, -1, -1);
 	image.mlx_ptr = mlx_init();
 	image.win_ptr = mlx_new_window(image.mlx_ptr, WIDTH, HEIGHT, "fdf");
@@ -79,13 +84,11 @@ int	main(int argc, char *argv[])
 	convert_isometric(&image);
 	draw_image(&image);
 	mlx_put_image_to_window(image.mlx_ptr, image.win_ptr, image.img, 0, 0);
-	mlx_hook(image.win_ptr, 2, 0, &key_press_esc, &image);
-	mlx_hook(image.win_ptr, 17, 0, &exit_key, 0);
+	mlx_hook(image.win_ptr, 17, 0, &handle_exit, 0);
 	mlx_key_hook(image.win_ptr, handle_key_hook, &image);
 	mlx_loop(image.mlx_ptr);
-	exit (0);
+	handle_exit(0);
 }
-
 
 // void check_leaks(void) 
 // { system("leaks fdf"); } 
