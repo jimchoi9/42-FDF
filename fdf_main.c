@@ -65,6 +65,8 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		exit(1);
 	str = ft_strrchr(argv[1], '.');
+	if(str == NULL)
+		exit(1);
 	if (ft_strncmp(str, ".fdf", 3) != 0)
 		exit(1);
 	parsing(argv, &image, -1, -1);

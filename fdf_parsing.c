@@ -41,11 +41,11 @@ int	is_valid_map(char *argv[], t_data *image)
 	image->height = 0;
 	line = get_next_line(fd);
 	str = ft_split(line, ' ');
-	check = str_check2(image, str);
+	check = str_check(image, str);
 	while (line != NULL)
 	{
 		str = ft_split(line, ' ');
-		if (str_check2(image, str) != check)
+		if (str_check(image, str) != check)
 			exit (1);
 		image->height++;
 		free(line);
