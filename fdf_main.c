@@ -84,6 +84,7 @@ int	main(int argc, char *argv[])
 	exit (0);
 }
 
+
 // void check_leaks(void) 
 // { system("leaks fdf"); } 
 // atexit(check_leaks);

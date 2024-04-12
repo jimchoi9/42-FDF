@@ -12,25 +12,20 @@
 
 #include "fdf.h"
 
-void	str_check(t_data *image, char **str)
+int	str_check(t_data *image, char **str)
 {
-	int	check;
-	int	length;
+	int	i;
 
-	length = 0;
-	check = 0;
+	i = 0;
 	image->width = 0;
-	while (str[image->width] != NULL)
+	while (str[i] != NULL)
 	{
-		if (str[image->width][0] == '\n')
-			check = 1;
-		free(str[image->width]);
-		if (length != image->width && length != 0)
-			exit(1);
-		image->width++;
+		if (str[i][0] != '\n')
+			image->width++;
+		free(str[i]);
+		i++;
 	}
-	if (check != 0)
-		image->width -= 1;
+	return (image->width);
 }
 
 int	is_valid_map(char *argv[], t_data *image)
@@ -40,23 +35,22 @@ int	is_valid_map(char *argv[], t_data *image)
 	char	*line;
 	char	**str;
 
-	check = 0;
-	image->height = 0;
-	image->width = 0;
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 		exit (1);
-	while (1)
+	image->height = 0;
+	line = get_next_line(fd);
+	str = ft_split(line, ' ');
+	check = str_check2(image, str);
+	while (line != NULL)
 	{
-		line = get_next_line(fd);
-		if (line == 0)
-			break ;
 		str = ft_split(line, ' ');
-		str_check(image, str);
-		check = image->width;
+		if (str_check2(image, str) != check)
+			exit (1);
 		image->height++;
 		free(line);
 		free(str);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (open(argv[1], O_RDONLY));

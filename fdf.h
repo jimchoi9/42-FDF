@@ -76,7 +76,7 @@ void	bhm_drow_w(t_xy xy, t_linedata line, t_data image);
 void	bhm_drow_h(t_xy xy, t_linedata line, t_data image);
 void	bhm(t_xy xy, int x2, int y2, t_data *image);
 void	bresenham(t_xy xy, int x2, int y2, t_data *image);
-void	str_check(t_data *image, char **str);
+int		str_check(t_data *image, char **str);
 int		is_valid_map(char *argv[], t_data *image);
 void	init_struct(t_data *image);
 void	parsing(char *argv[], t_data *image, int i, int j);
